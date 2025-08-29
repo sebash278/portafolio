@@ -1,0 +1,362 @@
+ <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"> <!-- Fuente Inter desde Google Fonts con varios pesos -->
+    <link rel="preload" href="css/normalize.css" as="style">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Portafolio Profesional - Sebastian Hernandez</title>
+</head>
+<body>
+    <div id="loader" class="loader">
+        <div class="loader-content">
+            <div class="loader-circle"></div>
+            <p>Cargando Portafolio</p>
+        </div>
+    </div>
+
+    <!-- Botón Dark Mode -->
+    <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema"><i class="fas fa-moon"></i></button>
+
+    <!-- Header con Navegación -->
+    <header id="header" class="header">
+        <div id="contenedor">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <h1>Sebastian Hernandez <span class="accent">.</span></h1>
+                </div>
+                <nav id="nav" class="nav-bar">
+                        <a href="#inicio" class="nav-link-activate">Inicio</a>
+                        <a href="#sobre-mi" class="nav-link">Sobre Mi</a>
+                        <a href="#habilidades" class="nav-link">Habilidades</a>
+                        <a href="#portafolio" class="nav-link">Portafolio</a>
+                        <a href="#experiencia" class="nav-link">Experiencia</a>
+                        <a href="#contacto" class="nav-link">Contacto</a>
+                        <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Menu"><span class="hamburguer"></span></button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sección Portada -->
+     <section id="inicio" class="hero">
+        <div class="hero-background">
+            <div class="hero-particles">
+
+            </div>
+        </div>
+        <div class="hero-content contenedor">
+            <div class="hero-text fade-in">
+                <p class="hero-greeting">¡Hola! Soy</p>
+                <h1 class="hero-title"><span>Sebastian Hernandez</span></h1>
+                <h2 class="hero-subtitle">Desarrollador Full-Stack</h2>
+                <p>Creo y desarrollo experiencias digitales únicas, combinando creatividad y funcionalidad para inspirar, conectar y dejar huella en cada proyecto.</p>
+                <button class="hero-buttons">
+                    <a href="#portafolio" class="btn-primary">Ver Portafolio</a>
+                    <a href="#contacto" class="btn-secondary">Contactar</a>
+                </button>
+            </div>
+            <div class="hero-image fade-in-right">
+                <div class="image-container">
+                    <div class="image-border">
+                        <div class="profile-pic">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+     </section>
+
+     <!-- Sección Sobre Mi -->
+    <section id="sobre-mi" class="sobre-mi section">
+        <div class="contenedor">
+            <div class="section-header">
+                <h2 class="section-title">Sobre Mi</h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="sobre-mi-content">
+                <div class="sobre-mi-text">
+                    <p class="info-text">Soy un apasionado por el desarrollo web, con un enfoque en crear soluciones digitales que sean visualmente atractivas y funcionales. Me gusta combinar diseño y tecnología para construir experiencias que conecten con las personas y cumplan objetivos claros</p>
+                    <p>Siempre busco aprender y mejorar, explorando nuevas herramientas, tendencias y metodologías. Para mí, cada proyecto es una oportunidad de crecer y aportar valor, trabajando con dedicación y atención al detalle.</p>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <h3>10+</h3>
+                            <p>Proyectos Completados</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>1+</h3>
+                            <p>Años de Experiencia</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>5+</h3>
+                            <p>Clientes Satisfechos</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="sobre-mi-skills">
+                    <h3>¿Por qué elegirnos?</h3>
+                    <div class="skills-list">
+
+                        <!-- Primer skill -->
+
+                        <div class="skills-items">
+                            <i class="fas fa-code"></i>
+                            <div>
+                                <h4>Código Limpio</h4>
+                                <p>Escribo código claro, ordenado y fácil de mantener, pensando siempre en que otros desarrolladores (o yo mismo en el futuro) puedan entenderlo sin problemas.</p>
+                            </div>
+                        </div>
+
+                        <!-- Segunda skill -->
+
+                        <div class="skills-items">
+                            <i class="fas fa-rocket"></i>
+                            <div>
+                                <h4>Resolución de Problemas</h4>
+                                <p>Analizo situaciones complejas y las descompongo en pasos simples para encontrar soluciones efectivas y rápidas.</p>
+                            </div>
+                        </div>
+
+                        <!-- Tercer skill -->
+
+                        <div class="skills-items">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                            <div>
+                                <h4>Aprendizaje Constante</h4>
+                                <p>Me mantengo al día con nuevas tecnologías y tendencias, siempre buscando mejorar mis habilidades y conocimientos</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seccion Habilidades -->
+
+    <section class="habilidades section" id="habilidades">
+        <div class="contenedor">
+            <div class="section-header">
+                <div class="section-title">
+                    <h2>Habilidades Técnicas</h2>
+                    <div class="section-divider"></div>
+                </div>
+            </div>
+                <!-- Contenedor para las categorias -->
+                <div class="skills-container">
+                    <div class="skills-category">
+                        <h3>Frontend</h3>
+                        <div class="skills-grid">
+                            <div class="skill-card">
+                                <div class="skill-icon">
+                                    <i class="fab fa-html5"></i>
+                                </div>
+                                <h4>HTML5</h4>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-skills="95">
+                                        <!-- data-skills usando JS para animar el porcentaje -->
+                                    </div>
+                                    <span class="skill-percentage">95%</span>
+                                </div>
+                            </div>
+
+                            <div class="skill-card">
+                                <div class="skill-icon">
+                                    <i class="fab fa-css3-alt"></i>
+                                </div>
+                                <h4>CSS3</h4>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-skills="80">
+                                        <!-- data-skills usando JS para animar el porcentaje -->
+                                    </div>
+                                    <span class="skill-percentage">80%</span>
+                                </div>
+                            </div>
+
+                            <div class="skill-card">
+                                <div class="skill-icon">
+                                    <i class="fab fa-js"></i>
+                                </div>
+                                <h4>JavaScript</h4>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-skills="45">
+                                        <!-- data-skills usando JS para animar el porcentaje -->
+                                    </div>
+                                    <span class="skill-percentage">45%</span>
+                                </div>
+                            </div>
+
+                            <div class="skill-card">
+                                <div class="skill-icon">
+                                    <i class="fab fa-react"></i>
+                                </div>
+                                <h4>JavaScript</h4>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-skills="10">
+                                        <!-- data-skills usando JS para animar el porcentaje -->
+                                    </div>
+                                    <span class="skill-percentage">10%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skills-category">
+                        <h3>Backend</h3>
+                        <div class="skills-grid">
+                            <div class="skill-card">
+                                <div class="skill-icon">
+                                    <i class="fab fa-node"></i>
+                                </div>
+                                <h4>Node.js</h4>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-skills="60">
+                                        <!-- data-skills usando JS para animar el porcentaje -->
+                                    </div>
+                                    <span class="skill-percentage">60%</span>
+                                </div>
+                            </div>
+
+                            <div class="skill-card">
+                                <div class="skill-icon">
+                                    <i class="fa-solid fa-server"></i>
+                                </div>
+                                <h4>Express</h4>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-skills="60">
+                                        <!-- data-skills usando JS para animar el porcentaje -->
+                                    </div>
+                                    <span class="skill-percentage">60%</span>
+                                </div>
+                            </div>
+
+                            <div class="skill-card">
+                                <div class="skill-icon">
+                                    <i class="fab fa-python"></i>
+                                </div>
+                                <h4>Python</h4>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-skills="50">
+                                        <!-- data-skills usando JS para animar el porcentaje -->
+                                    </div>
+                                    <span class="skill-percentage">50%</span>
+                                </div>
+                            </div>
+
+                            <div class="skill-card">
+                                <div class="skill-icon">
+                                    <i class="fa-solid fa-database"></i>
+                                </div>
+                                <h4>PostgreSQL</h4>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-skills="20">
+                                        <!-- data-skills usando JS para animar el porcentaje -->
+                                    </div>
+                                    <span class="skill-percentage">20%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </section>
+
+    <!-- Sección Portafolio -->
+
+    <section class="portafolio section" id="portafolio">
+        <div class="contenedor">
+            <div class="portafolio-header section-header">
+                <div class="section-title">
+                    <h2>Portafolio</h2>
+                </div>
+                <div class="section-divider"></div>
+            </div>
+            <div class="portafolio-filters">
+                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn active" data-filter="web">Web Apps</button>
+                <button class="filter-btn active" data-filter="mobile">Mobile</button>
+                <button class="filter-btn active" data-filter="ecommece">E-Commerce</button>
+            </div>
+            <div class="portafolio-grid">
+                <div class="portafolio-item">
+                    <div class="portafolio-image">
+                        <div class="project-placeholder">
+                            <i class="fa-solid fa-laptop"></i>
+                        </div>
+                        <div class="portafolio-overlay">
+                            <div class="portafolio-content">
+                                <h3>Blog</h3>
+                                <p>Aplicación web con un CRUD completo y un sistema de autenticación de usuarios completo, creada con Node.JS, Express, EJS, JS y CSS3, con arquitectura MVC organizada.</p>
+                                <div class="portafolio-links">
+                                    <a href="https://blog-zs2k.onrender.com" target="_blank" class="portafolio-link"><i class="fa-solid fa-eye"></i></a>
+                                    <a href="https://github.com/sebash278/Blog" target="_blank" class="portafolio-link"><i class="fa-brands fa-github"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="portafolio-item" data-category="ecommece">
+                    <div class="portafolio-image">
+                        <div class="project-placeholder">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                        </div>
+                        <div class="portafolio-overlay">
+                            <div class="portafolio-content">
+                                <h3>Tienda E-commerce</h3>
+                                <p>Tienda online completa con arrito de pago. Realizada con Java y SpringBoot.</p>
+                                <div class="portafolio-links">
+                                    <a href="#" class="portafolio-link"><i class="fa-solid fa-eye"></i></a>
+                                    <a href="#" class="portafolio-link"><i class="fa-brands fa-github"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="portafolio-item" data-category="web">
+                    <div class="portafolio-image">
+                        <div class="project-placeholder">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <div class="portafolio-overlay">
+                            <div class="portafolio-content">
+                                <h3>Blog</h3>
+                                <p>Aplicación web con un CRUD completo y un sistema de autenticación de usuarios completo, creada con Node.JS, Express, EJS, JS y CSS3, con arquitectura MVC organizada.</p>
+                                <div class="portafolio-links">
+                                    <a href="https://blog-zs2k.onrender.com" target="_blank" class="portafolio-link"><i class="fa-solid fa-eye"></i></a>
+                                    <a href="https://github.com/sebash278/Blog" target="_blank" class="portafolio-link"><i class="fa-brands fa-github"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="portafolio-item" data-category="mobile">
+                    <div class="portafolio-image">
+                        <div class="project-placeholder">
+                            <i class="fa-solid fa-mobile-vibrate"></i>                        </div>
+                        <div class="portafolio-overlay">
+                            <div class="portafolio-content">
+                                <h3>Chat interactivo</h3>
+                                <p>Aplicación móvil de un chat para una empresa.</p>
+                                <div class="portafolio-links">
+                                    <a href="https://blog-zs2k.onrender.com" target="_blank" class="portafolio-link"><i class="fa-solid fa-eye"></i></a>
+                                    <a href="https://github.com/sebash278/Blog" target="_blank" class="portafolio-link"><i class="fa-brands fa-github"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Fin grid portafolio -->
+        </div>
+    </section>
+    <script src="js/main.js"></script>
+</body>
+</html>

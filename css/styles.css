@@ -1,0 +1,1421 @@
+/* ===============================================
+   MODERN DEVELOPER PORTFOLIO - CSS STYLES
+   Archivo de estilos principal para el portafolio.
+   Incluye variables, diseño base, secciones y responsive.
+   =============================================== */
+
+/* 
+:root → Variables CSS globales. 
+Facilitan el cambio de colores, tipografías, tamaños y espaciados en todo el sitio.
+*/
+:root {
+    /* --- Colores para el tema claro --- */
+    --primary-color: #667eea;        /* Color principal (azul-lila) usado en botones, títulos, etc. */
+    --secondary-color: #764ba2;      /* Color secundario (violeta) para gradientes y detalles */
+    --accent-color: #f093fb;         /* Color acento (rosado) para resaltar elementos */
+    --text-primary: #2d3748;         /* Color principal del texto */
+    --text-secondary: #4a5568;       /* Color secundario para subtítulos o textos menos importantes */
+    --text-muted: #718096;           /* Texto tenue para información secundaria */
+    --background: #ffffff;           /* Fondo principal del sitio */
+    --surface: #f7fafc;              /* Fondos de tarjetas, secciones alternas */
+    --border: #e2e8f0;               /* Color de bordes */
+    --shadow: rgba(0, 0, 0, 0.1);    /* Sombra suave para tarjetas */
+    --overlay: rgba(255, 255, 255, 0.9); /* Fondo semitransparente para overlays */
+
+    /* --- Colores para el tema oscuro --- */
+    --dark-primary: #667eea;
+    --dark-secondary: #764ba2;
+    --dark-accent: #f093fb;
+    --dark-text-primary: #f7fafc;
+    --dark-text-secondary: #e2e8f0;
+    --dark-text-muted: #a0aec0;
+    --dark-background: #1a202c;
+    --dark-surface: #2d3748;
+    --dark-border: #4a5568;
+    --dark-shadow: rgba(0, 0, 0, 0.3);
+    --dark-overlay: rgba(45, 55, 72, 0.9);
+
+    /* --- Tipografía global --- */
+    --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; /* Fuente principal */
+    --font-weight-light: 300;       /* Pesos de la tipografía */
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+
+    /* --- Espaciados --- */
+    --spacing-xs: 0.25rem;   /* Extra pequeño */
+    --spacing-sm: 0.5rem;    /* Pequeño */
+    --spacing-md: 1rem;      /* Medio */
+    --spacing-lg: 2rem;      /* Grande */
+    --spacing-xl: 4rem;      /* Extra grande */
+    --spacing-2xl: 8rem;     /* Muy grande */
+
+    /* --- Bordes redondeados --- */
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 1rem;
+    --radius-xl: 2rem;
+
+    /* --- Velocidades de transición --- */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+
+    /* --- Z-index para jerarquía de capas --- */
+    --z-dropdown: 1000;
+    --z-sticky: 1020;
+    --z-fixed: 1030;
+    --z-modal-backdrop: 1040;
+    --z-modal: 1050;
+}
+
+/* Tema oscuro activado cuando el body tiene data-theme="dark" */
+[data-theme="dark"] {
+    /* Se reasignan variables para el modo oscuro */
+    --primary-color: var(--dark-primary);
+    --secondary-color: var(--dark-secondary);
+    --text-primary: var(--dark-text-primary);
+    --text-secondary: var(--dark-text-secondary);
+    --text-muted: var(--dark-text-muted);
+    --background: var(--dark-background);
+    --surface: var(--dark-surface);
+    --border: var(--dark-border);
+    --shadow: var(--dark-shadow);
+    --overlay: var(--dark-overlay);
+}
+
+/* ===============================================
+   RESET & BASE STYLES
+   =============================================== */
+
+* {
+    margin: 0;                          /* Elimina márgenes por defecto de todos los elementos */
+    padding: 0;                         /* Elimina padding por defecto de todos los elementos */
+    box-sizing: border-box;             /* Incluye borde y padding dentro del ancho/alto total */
+}
+
+html {
+    font-size: 62.5%;                   /* 1rem = 10px (asumiendo 16px base del navegador) para cálculos fáciles */
+    scroll-behavior: smooth;            /* Scroll suave al navegar con anclas (#id) */
+    scroll-padding-top: 8rem;           /* Deja espacio superior al hacer scroll a anclas (por header fijo) */
+}
+
+body {
+    font-family: var(--font-primary);   /* Tipografía global desde variables */
+    font-size: 1.6rem;                  /* Tamaño base de texto (16px) */
+    line-height: 1.6;                   /* Altura de línea para mejor legibilidad */
+    color: var(--text-primary);         /* Color principal de texto */
+    background-color: var(--background);/* Color de fondo del sitio */
+    overflow-x: hidden;                 /* Evita scroll horizontal accidental */
+    transition: background-color var(--transition-normal); /* Suaviza cambio de fondo (ej. al cambiar tema) */
+}
+
+img {
+    max-width: 100%;                    /* Las imágenes no exceden el ancho del contenedor */
+    height: auto;                       /* Mantienen proporción al escalar */
+}
+
+a {
+    color: inherit;                     /* Enlaces heredan color del contexto */
+    text-decoration: none;              /* Sin subrayado por defecto */
+}
+
+ul {
+    list-style: none;                   /* Quita los bullets de listas */
+}
+
+button {
+    border: none;                       /* Quita borde por defecto */
+    background: none;                   /* Fondo transparente por defecto */
+    cursor: pointer;                    /* Cursor de mano para indicar clic */
+    font-family: inherit;               /* Hereda la tipografía del contexto */
+}
+
+/* ===============================================
+   UTILITY CLASSES
+   =============================================== */
+
+.contenedor {
+    max-width: 1200px;                  /* Ancho máximo para el contenido */
+    margin: 0 auto;                     /* Centra horizontalmente */
+    padding: 0 2rem;                    /* Padding lateral para respiración */
+}
+
+.section {
+    padding: 8rem 0;                    /* Espaciado vertical generoso entre secciones */
+    position: relative;                 /* Posicionamiento relativo para elementos hijos posicionados */
+}
+
+.section:nth-child(even) {
+    background-color: var(--surface);   /* Fondo alterno para secciones pares */
+}
+
+.section-header {
+    text-align: center;                 /* Centra el contenido de la cabecera de sección */
+    margin-bottom: 6rem;                /* Separación respecto al contenido siguiente */
+}
+
+.section-title {
+    font-size: 4rem;                    /* Tamaño grande de título de sección */
+    font-weight: var(--font-weight-bold);/* Peso tipográfico fuerte */
+    color: var(--text-primary);         /* Color de texto principal */
+    margin-bottom: 1rem;                /* Espacio inferior */
+    position: relative;                 /* Para pseudo-elementos si se necesitan */
+}
+
+.section-divider {
+    width: 6rem;                        /* Ancho del divisor bajo el título */
+    height: 0.4rem;                     /* Grosor del divisor */
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color)); /* Degradado decorativo */
+    margin: 0 auto 2rem;                /* Centrado y separación inferior */
+    border-radius: var(--radius-md);    /* Bordes redondeados */
+}
+
+.section-subtitle {
+    font-size: 1.8rem;                  /* Tamaño del subtítulo */
+    color: var(--text-muted);           /* Color tenue */
+    max-width: 600px;                   /* Ancho máximo para lectura cómoda */
+    margin: 0 auto;                     /* Centrado horizontal */
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;                     /* Empieza invisible */
+        transform: translateY(2rem);    /* Desplazada hacia abajo */
+    }
+    to {
+        opacity: 1;                     /* Termina visible */
+        transform: translateY(0);       /* En su lugar */
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;                     /* Empieza invisible */
+        transform: translateX(2rem);    /* Desplazada hacia la derecha */
+    }
+    to {
+        opacity: 1;                     /* Termina visible */
+        transform: translateX(0);       /* En su lugar */
+    }
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;                     /* Empieza invisible */
+        transform: translateY(3rem);    /* Desplazada hacia abajo */
+    }
+    to {
+        opacity: 1;                     /* Termina visible */
+        transform: translateY(0);       /* En su lugar */
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.8s ease forwards; /* Aplica animación de entrada vertical */
+}
+
+.fade-in-right {
+    animation: fadeInRight 0.8s ease forwards; /* Aplica animación entrada desde derecha */
+}
+
+.slide-in-up {
+    animation: slideInUp 0.6s ease forwards;   /* Aplica animación de deslizamiento hacia arriba */
+}
+
+/* Loading Screen */
+.loader {
+    position: fixed;                    /* Fija la pantalla de carga sobre todo */
+    top: 0; left: 0;                    /* Ocupa desde la esquina superior izquierda */
+    width: 100%;                        /* Ancho completo */
+    height: 100vh;                      /* Alto de la ventana */
+    background: var(--background);      /* Fondo acorde al tema */
+    display: flex;                      /* Centrado con flexbox */
+    justify-content: center;            /* Centra horizontalmente */
+    align-items: center;                /* Centra verticalmente */
+    z-index: 9999;                      /* Muy por encima del resto */
+    transition: opacity 0.5s ease;      /* Suaviza el desvanecido al ocultarse */
+}
+
+.loader-content {
+    text-align: center;                 /* Centra texto e íconos del loader */
+}
+
+.loader-circle {
+    width: 5rem; height: 5rem;          /* Tamaño del círculo */
+    border: 0.3rem solid var(--border); /* Borde base */
+    border-top: 0.3rem solid var(--primary-color); /* Borde superior con color para efecto spinner */
+    border-radius: 50%;                 /* Círculo perfecto */
+    animation: spin 1s linear infinite; /* Gira constantemente */
+    margin: 0 auto 2rem;                /* Centrado y espacio inferior */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }     /* Inicio sin rotación */
+    100% { transform: rotate(360deg); } /* Gira 360 grados */
+}
+
+.loader.hidden {
+    opacity: 0;                         /* Oculta visualmente */
+    pointer-events: none;               /* Evita interacción mientras está oculto */
+}
+
+/* Theme Toggle */
+.theme-toggle {
+    position: fixed;                    /* Botón flotante fijo */
+    top: 2rem; right: 2rem;             /* Posición en esquina superior derecha */
+    width: 5rem; height: 5rem;          /* Tamaño del botón circular */
+    border-radius: 50%;                 /* Forma circular */
+    background: var(--surface);         /* Fondo según tema */
+    color: var(--text-primary);         /* Color del ícono */
+    border: 0.2rem solid var(--border); /* Borde sutil */
+    display: flex;                      /* Centrado del ícono */
+    align-items: center; justify-content: center;
+    z-index: var(--z-fixed);            /* Por encima del contenido */
+    transition: all var(--transition-normal); /* Suaviza hover/cambios */
+    box-shadow: 0 0.4rem 1rem var(--shadow);   /* Sombra para elevación */
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);              /* Ligero zoom al pasar el mouse */
+    box-shadow: 0 0.6rem 2rem var(--shadow); /* Sombra más marcada */
+}
+
+/* ===============================================
+   HEADER & NAVIGATION
+   =============================================== */
+
+.header {
+    position: fixed;                    /* Header fijo al tope */
+    top: 0; left: 0;                    /* Anclado arriba a la izquierda */
+    width: 100%;                        /* Ocupa todo el ancho */
+    background: var(--overlay);         /* Fondo translúcido (para efecto glass) */
+    backdrop-filter: blur(1rem);        /* Desenfoque del fondo (soportado en navegadores modernos) */
+    z-index: var(--z-sticky);           /* Por encima del contenido */
+    padding: 1rem 0;                    /* Altura/espaciado vertical */
+    transition: all var(--transition-normal); /* Suaviza cambios (ej. al scrollear) */
+}
+
+.header.scrolled {
+    box-shadow: 0 0.2rem 2rem var(--shadow); /* Sombra al hacer scroll para separación visual */
+}
+
+.nav-wrapper {
+    display: flex;                      /* Layout en fila para logo/nav/botón */
+    justify-content: space-between;     /* Espacia elementos extremos */
+    align-items: center;                /* Centra verticalmente */
+}
+
+.logo-text {
+    font-size: 2.4rem;                  /* Tamaño del texto del logo */
+    font-weight: var(--font-weight-bold);/* Peso fuerte */
+    color: var(--text-primary);         /* Color principal */
+}
+
+.accent {
+    color: var(--primary-color);        /* Acento de color para el punto del logo */
+}
+
+.navegacion-principal {
+    display: flex;                      /* Menú en fila (desktop) */
+    gap: 3rem;                          /* Separación entre enlaces */
+}
+
+.nav-link {
+    font-size: 1.6rem;                  /* Tamaño de enlace */
+    font-weight: var(--font-weight-medium); /* Peso medio */
+    color: var(--text-secondary);       /* Color secundario por defecto */
+    position: relative;                 /* Para subrayado animado con ::after */
+    transition: color var(--transition-normal); /* Suaviza cambio de color */
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--primary-color);        /* En hover/activo, usa color principal */
+}
+
+.nav-link::after {
+    content: '';                        /* Pseudo-elemento para subrayado */
+    position: absolute;
+    bottom: -0.5rem; left: 0;           /* Posicionado bajo el texto */
+    width: 0; height: 0.2rem;           /* Ancho animado, alto del subrayado */
+    background: var(--primary-color);   /* Color del subrayado */
+    transition: width var(--transition-normal); /* Anima el ancho */
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;                        /* Muestra subrayado completo en hover/activo */
+}
+
+.menu-toggle {
+    display: none;                      /* Oculto en desktop; visible en mobile */
+    width: 3rem; height: 3rem;          /* Tamaño del botón hamburguesa */
+    flex-direction: column;             /* Estructura columna para las líneas */
+    justify-content: center; align-items: center;
+}
+
+.hamburger {
+    width: 2.5rem; height: 0.2rem;      /* Línea central del ícono */
+    background: var(--text-primary);    /* Color de la línea */
+    position: relative;                 /* Para posicionar líneas superior/inferior */
+    transition: all var(--transition-normal); /* Suaviza transformaciones */
+}
+
+.hamburger::before,
+.hamburger::after {
+    content: '';                        /* Crea las líneas superior e inferior */
+    position: absolute;                 /* Posicionadas respecto a .hamburger */
+    width: 100%; height: 100%;          /* Igual tamaño que la línea principal */
+    background: var(--text-primary);    /* Mismo color */
+    transition: all var(--transition-normal); /* Suaviza transiciones */
+}
+
+.hamburger::before {
+    top: -0.8rem;                       /* Línea superior */
+}
+
+.hamburger::after {
+    top: 0.8rem;                        /* Línea inferior */
+}
+
+/* Mobile Navigation */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: flex;                  /* Muestra el botón hamburguesa en móviles */
+    }
+    
+    .navegacion-principal {
+        position: fixed;                /* Menú flotante */
+        top: 7rem; left: 0;             /* Debajo del header */
+        width: 100%;                    /* Ocupa todo el ancho */
+        background: var(--background);  /* Fondo acorde al tema */
+        flex-direction: column;         /* Enlaces en columna */
+        padding: 2rem;                  /* Espaciado interno */
+        box-shadow: 0 0.5rem 2rem var(--shadow); /* Sombra para elevación */
+        transform: translateY(-100%);   /* Oculto arriba por defecto */
+        opacity: 0;                     /* Invisible por defecto */
+        visibility: hidden;             /* Oculto para accesibilidad/clicks */
+        transition: all var(--transition-normal); /* Animación de apertura/cierre */
+    }
+    
+    .navegacion-principal.active {
+        transform: translateY(0);       /* Baja al viewport */
+        opacity: 1;                     /* Visible */
+        visibility: visible;            /* Interactuable */
+    }
+}
+
+/* ===============================================
+   HERO SECTION
+   =============================================== */
+
+.hero {
+    min-height: 100vh;                  /* Ocupa mínimo toda la altura visible */
+    display: flex;                      /* Centrado vertical con flex si se requiere */
+    align-items: center;                /* Centra contenido verticalmente */
+    position: relative;                 /* Para capas absolutas (fondo/partículas) */
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); /* Degradado base */
+    overflow: hidden;                   /* Oculta desbordes de elementos animados */
+}
+
+.hero-background {
+    position: absolute;                 /* Capa de fondo */
+    top: 0; left: 0; width: 100%; height: 100%; /* Cubre toda la sección */
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color)); /* Degradado superior */
+    opacity: 0.9;                       /* Ligera transparencia */
+}
+
+.hero-particles {
+    position: absolute;                 /* Capa de partículas decorativas */
+    width: 100%; height: 100%;          /* Cubre toda la sección */
+    background-image: 
+        radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%), /* Mancha suave 1 */
+        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%); /* Mancha suave 2 */
+    animation: float 6s ease-in-out infinite; /* Movimiento suave vertical cíclico */
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); } /* Posición base */
+    50% { transform: translateY(-2rem); }    /* Sube en el medio del ciclo */
+}
+
+.contenido-hero {
+    display: grid;                     /* Layout en grid para texto/imagen */
+    grid-template-columns: 1fr 1fr;    /* Dos columnas iguales */
+    gap: 6rem;                         /* Separación entre columnas */
+    align-items: center;               /* Alinea verticalmente */
+    position: relative;                /* Para z-index por encima del fondo */
+    z-index: 2;                        /* Encima de background y particles */
+}
+
+.hero-text {
+    color: white;                      /* Texto blanco sobre degradado */
+}
+
+.hero-greeting {
+    font-size: 2rem;                   /* Tamaño del saludo inicial */
+    font-weight: var(--font-weight-medium); /* Peso medio */
+    margin-bottom: 1rem;               /* Separación inferior */
+    opacity: 0.9;                      /* Ligero desvanecido */
+}
+
+.hero-title {
+    font-size: 5rem;                   /* Título principal grande */
+    font-weight: var(--font-weight-bold); /* Peso fuerte */
+    margin-bottom: 1rem;               /* Separación inferior */
+    line-height: 1.1;                  /* Altura de línea compacta */
+}
+
+.highlight {
+    background: linear-gradient(90deg, #fff, #f093fb); /* Degradado aplicado al texto */
+    -webkit-background-clip: text;     /* Recorta el fondo al texto (Safari/Chrome) */
+    -webkit-text-fill-color: transparent; /* Hace el texto transparente para ver el fondo */
+    background-clip: text;             /* Estándar para clip de fondo en texto */
+}
+
+.hero-subtitle {
+    font-size: 2.4rem;                 /* Tamaño del subtítulo */
+    font-weight: var(--font-weight-medium); /* Peso medio */
+    margin-bottom: 2rem;               /* Separación inferior */
+    opacity: 0.9;                      /* Ligero desvanecido */
+}
+
+.hero-description {
+    font-size: 1.8rem;                 /* Tamaño del párrafo */
+    line-height: 1.7;                  /* Altura de línea amplia para legibilidad */
+    margin-bottom: 3rem;               /* Separación inferior */
+    opacity: 0.8;                      /* Más tenue */
+}
+
+.hero-buttons {
+    display: flex;                     /* Botones en fila */
+    gap: 2rem;                         /* Separación entre botones */
+    flex-wrap: wrap;                   /* Permite salto de línea en pantallas chicas */
+}
+
+.btn-primary,
+.btn-secondary {
+    padding: 1.2rem 3rem;              /* Área clicable amplia */
+    font-size: 1.6rem;                 /* Tamaño de texto */
+    font-weight: var(--font-weight-semibold); /* Peso semibold */
+    border-radius: var(--radius-lg);   /* Bordes redondeados grandes */
+    transition: all var(--transition-normal); /* Suaviza hover/focus */
+    text-align: center;                /* Centra el texto */
+    display: inline-flex;              /* Alinea ícono/texto en línea */
+    align-items: center;               /* Centra verticalmente */
+    gap: 1rem;                         /* Separación entre ícono y texto */
+}
+
+.btn-primary {
+    background: rgba(255, 255, 255, 0.2);             /* Fondo translúcido */
+    color: white;                                     /* Texto blanco */
+    border: 0.2rem solid rgba(255, 255, 255, 0.3);    /* Borde suave */
+    backdrop-filter: blur(1rem);                      /* Efecto vidrio */
+}
+
+.btn-primary:hover {
+    background: rgba(255, 255, 255, 0.3);             /* Aumenta la opacidad al hover */
+    transform: translateY(-0.2rem);                   /* Sube levemente */
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.2);       /* Sombra más marcada */
+}
+
+.btn-secondary {
+    background: transparent;                          /* Sin fondo */
+    color: white;                                     /* Texto blanco */
+    border: 0.2rem solid rgba(255, 255, 255, 0.5);    /* Borde visible */
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);             /* Sutil fondo al hover */
+    transform: translateY(-0.2rem);                   /* Sube levemente */
+}
+
+.hero-image {
+    display: flex;                                    /* Centrado del contenedor de imagen */
+    justify-content: center; align-items: center;
+}
+
+.image-container {
+    position: relative;                               /* Para el borde animado alrededor */
+    width: 30rem; height: 30rem;                      /* Tamaño del contenedor circular */
+}
+
+.image-border {
+    position: absolute;                               /* Marco animado alrededor de la imagen */
+    top: -2rem; left: -2rem;                          /* Se extiende más allá del contenedor */
+    width: calc(100% + 4rem); height: calc(100% + 4rem); /* Suma el offset para encuadre */
+    border: 0.3rem solid rgba(255, 255, 255, 0.2);    /* Borde semitransparente */
+    border-radius: 50%;                               /* Forma circular */
+    animation: rotate 20s linear infinite;            /* Rotación lenta e infinita */
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }                 /* Comienza sin rotación */
+    to { transform: rotate(360deg); }                 /* Gira completamente */
+}
+
+.profile-image {
+    width: 100%; height: 100%;                        /* Ocupa el contenedor */
+    background: rgba(255, 255, 255, 0.1);             /* Fondo translúcido */
+    border-radius: 50%;                               /* Círculo */
+    display: flex; align-items: center; justify-content: center; /* Centra ícono */
+    font-size: 8rem;                                  /* Tamaño del ícono */
+    color: rgba(255, 255, 255, 0.7);                  /* Color del ícono */
+    backdrop-filter: blur(1rem);                      /* Efecto vidrio */
+}
+
+.scroll-indicator {
+    position: absolute;                               /* Indicador flotante */
+    bottom: 2rem; left: 50%;                          /* Posicionado al centro abajo */
+    transform: translateX(-50%);                      /* Ajuste para centrar */
+    color: white;                                     /* Color del borde/flecha */
+    opacity: 0.7;                                     /* Semitransparente */
+    animation: bounce 2s infinite;                    /* Animación de rebote */
+}
+
+.scroll-arrow {
+    width: 2rem; height: 2rem;                        /* Tamaño del indicador */
+    border: 0.2rem solid white;                       /* Borde blanco */
+    border-top: none; border-left: none;              /* Solo dos lados para formar flecha */
+    transform: rotate(45deg);                         /* Rota para apuntar hacia abajo */
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); } /* Posición base */
+    40% { transform: translateX(-50%) translateY(-1rem); }                  /* Sube más */
+    60% { transform: translateX(-50%) translateY(-0.5rem); }                /* Sube menos */
+}
+
+@media (max-width: 768px) {
+    .contenido-hero {
+        grid-template-columns: 1fr;                     /* Una sola columna en móviles */
+        text-align: center;                             /* Centra el texto */
+        gap: 4rem;                                      /* Menor separación */
+    }
+    
+    .hero-title {
+        font-size: 4rem;                                /* Reduce tamaño del título */
+    }
+    
+    .hero-buttons {
+        justify-content: center;                        /* Centra los botones */
+    }
+    
+    .image-container {
+        width: 20rem; height: 20rem;                    /* Reduce tamaño de imagen */
+    }
+}
+
+/* ===============================================
+   ABOUT SECTION
+   =============================================== */
+
+.sobre-mi-content {
+    display: grid;                                      /* Dos columnas: texto y "¿por qué elegirme?" */
+    grid-template-columns: 1fr 1fr;                     /* Columnas iguales */
+    gap: 6rem;                                          /* Separación entre columnas */
+    align-items: start;                                  /* Alinea el contenido al inicio vertical */
+}
+
+.intro-text {
+    font-size: 2rem;                                    /* Texto destacado más grande */
+    font-weight: var(--font-weight-medium);             /* Peso medio */
+    color: var(--primary-color);                        /* Color primario para resaltar */
+    margin-bottom: 2rem;                                /* Separación inferior */
+}
+
+.stats-grid {
+    display: grid;                                      /* Grid para las estadísticas */
+    grid-template-columns: repeat(3, 1fr);              /* Tres columnas iguales */
+    gap: 2rem;                                          /* Separación entre tarjetas */
+    margin-top: 3rem;                                   /* Separación superior respecto a párrafos */
+}
+
+.stat-item {
+    text-align: center;                                 /* Centra contenido de cada estadística */
+    padding: 2rem;                                      /* Espaciado interno */
+    background: var(--surface);                         /* Fondo de tarjeta */
+    border-radius: var(--radius-lg);                    /* Bordes redondeados */
+    transition: transform var(--transition-normal);     /* Suaviza efecto hover */
+}
+
+.stat-item:hover {
+    transform: translateY(-0.5rem);                     /* Sube levemente al hover */
+}
+
+.stat-item h3 {
+    font-size: 3rem;                                    /* Número grande */
+    font-weight: var(--font-weight-bold);               /* Peso fuerte */
+    color: var(--primary-color);                        /* Color primario para el número */
+    margin-bottom: 0.5rem;                              /* Separación con el texto */
+}
+
+.stat-item p {
+    color: var(--text-muted);                           /* Texto secundario */
+    font-weight: var(--font-weight-medium);             /* Peso medio */
+}
+
+.sobre-mi-skills h3 {
+    font-size: 2.4rem;                                  /* Subtítulo de la columna derecha */
+    margin-bottom: 3rem;                                /* Separación inferior */
+    color: var(--text-primary);                         /* Color de texto principal */
+}
+
+.skills-list {
+    display: flex;                                      /* Lista en columna con flex */
+    flex-direction: column;
+    gap: 2rem;                                          /* Separación entre ítems */
+}
+
+.skill-item {
+    display: flex;                                      /* Ícono + texto en fila */
+    align-items: flex-start;                            /* Alinea al inicio vertical */
+    gap: 2rem;                                          /* Separación entre ícono y texto */
+    padding: 2rem;                                      /* Espaciado interno */
+    background: var(--surface);                         /* Fondo de tarjeta */
+    border-radius: var(--radius-lg);                    /* Bordes redondeados */
+    transition: all var(--transition-normal);           /* Suaviza hover */
+}
+
+.skill-item:hover {
+    transform: translateX(1rem);                        /* Se mueve levemente a la derecha al hover */
+    box-shadow: 0 1rem 3rem var(--shadow);              /* Sombra para elevación */
+}
+
+.skill-item i {
+    font-size: 2.4rem;                                  /* Tamaño del ícono */
+    color: var(--primary-color);                        /* Color primario para ícono */
+    min-width: 2.4rem;                                  /* Evita saltos de layout */
+}
+
+.skill-item h4 {
+    font-size: 1.8rem;                                  /* Título del ítem */
+    font-weight: var(--font-weight-semibold);           /* Peso semibold */
+    margin-bottom: 0.5rem;                              /* Separación inferior */
+    color: var(--text-primary);                         /* Color de texto principal */
+}
+
+.skill-item p {
+    color: var(--text-muted);                           /* Texto explicativo tenue */
+    line-height: 1.6;                                   /* Altura de línea cómoda */
+}
+
+@media (max-width: 768px) {
+    .sobre-mi-content {
+        grid-template-columns: 1fr;                     /* Pasa a una columna en móviles */
+        gap: 4rem;                                      /* Menor separación */
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;                     /* Estadísticas apiladas */
+    }
+}
+
+/* ===============================================
+   SKILLS SECTION
+   =============================================== */
+
+.skills-container {
+    display: grid;                                      /* Dos columnas: Frontend/Backend */
+    grid-template-columns: 1fr 1fr;                     
+    gap: 6rem;                                          /* Separación entre columnas */
+}
+
+.skills-category h3 {
+    font-size: 2.4rem;                                  /* Título de categoría */
+    font-weight: var(--font-weight-semibold);           /* Peso semibold */
+    color: var(--text-primary);                         /* Color de texto principal */
+    margin-bottom: 3rem;                                /* Separación inferior */
+    text-align: center;                                 /* Centra el título */
+    position: relative;                                 /* Para el pseudo-elemento decorativo */
+}
+
+.skills-category h3::after {
+    content: '';                                        /* Línea decorativa bajo el título */
+    position: absolute;
+    bottom: -1rem; left: 50%;                           /* Centrada bajo el título */
+    transform: translateX(-50%);
+    width: 4rem; height: 0.3rem;                        /* Tamaño de la línea */
+    background: var(--primary-color);                   /* Color primario */
+    border-radius: var(--radius-md);                    /* Bordes redondeados */
+}
+
+.skills-grid {
+    display: grid;                                      /* Grid para tarjetas de skill */
+    gap: 2.5rem;                                        /* Separación entre tarjetas */
+}
+
+.skill-card {
+    background: var(--surface);                         /* Fondo de tarjeta */
+    padding: 2.5rem 2rem;                               /* Espaciado interno */
+    border-radius: var(--radius-lg);                    /* Bordes redondeados */
+    text-align: center;                                 /* Contenido centrado */
+    transition: all var(--transition-normal);           /* Suaviza hover */
+    border: 0.1rem solid var(--border);                 /* Borde sutil */
+}
+
+.skill-card:hover {
+    transform: translateY(-0.5rem);                     /* Sube levemente al hover */
+    box-shadow: 0 2rem 4rem var(--shadow);              /* Sombra más intensa */
+    border-color: var(--primary-color);                 /* Resalta el borde con color primario */
+}
+
+.skill-icon {
+    font-size: 4rem;                                    /* Tamaño del ícono */
+    margin-bottom: 1.5rem;                              /* Separación inferior */
+}
+
+.skill-icon .fab {
+    color: var(--primary-color);                        /* Colorea íconos de marcas (Font Awesome Brands) */
+}
+
+.skill-icon .fas {
+    color: var(--secondary-color);                      /* Colorea íconos sólidos */
+}
+
+.skill-card h4 {
+    font-size: 1.8rem;                                  /* Nombre de habilidad */
+    font-weight: var(--font-weight-semibold);           /* Peso semibold */
+    margin-bottom: 1.5rem;                              /* Separación inferior */
+    color: var(--text-primary);                         /* Color principal de texto */
+}
+
+.skill-bar {
+    width: 100%; height: 0.6rem;                        /* Tamaño de la barra base */
+    background: var(--border);                          /* Color de fondo de barra */
+    border-radius: var(--radius-md);                    /* Bordes redondeados */
+    margin-bottom: 1rem;                                /* Separación con el porcentaje */
+    overflow: hidden;                                   /* Oculta el overflow del progreso */
+}
+
+.skill-progress {
+    height: 100%;                                       /* Misma altura que la barra */
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color)); /* Degradado de progreso */
+    border-radius: var(--radius-md);                    /* Bordes redondeados */
+    transition: width 2s ease;                          /* Animación de llenado */
+    width: 0;                                           /* Inicia en 0; JS lo expandirá según data-skill */
+}
+
+.skill-percentage {
+    font-size: 1.4rem;                                  /* Tamaño del texto porcentaje */
+    font-weight: var(--font-weight-semibold);           /* Peso semibold */
+    color: var(--primary-color);                        /* Color primario para destacar */
+}
+
+@media (max-width: 768px) {
+    .skills-container {
+        grid-template-columns: 1fr;                     /* Una columna en móviles */
+        gap: 4rem;                                      /* Menor separación */
+    }
+}
+
+/* ===============================================
+   PORTFOLIO SECTION
+   =============================================== */
+
+.portfolio-filters {
+    display: flex;                                      /* Fila de filtros */
+    justify-content: center;                            /* Centra los botones */
+    gap: 1rem;                                          /* Separación entre botones */
+    margin-bottom: 4rem;                                /* Espacio bajo los filtros */
+    flex-wrap: wrap;                                    /* Permite saltos de línea en pantallas pequeñas */
+}
+
+.filter-btn {
+    padding: 1rem 2rem;                                 /* Área clicable */
+    font-size: 1.4rem;                                  /* Tamaño de texto */
+    font-weight: var(--font-weight-medium);             /* Peso medio */
+    color: var(--text-secondary);                       /* Color de texto por defecto */
+    background: var(--surface);                         /* Fondo de botón */
+    border: 0.1rem solid var(--border);                 /* Borde sutil */
+    border-radius: var(--radius-lg);                    /* Bordes redondeados */
+    transition: all var(--transition-normal);           /* Suaviza hover/active */
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: var(--primary-color);                   /* Fondo primario en hover/activo */
+    color: white;                                       /* Texto blanco para contraste */
+    border-color: var(--primary-color);                 /* Borde primario */
+    transform: translateY(-0.2rem);                     /* Sube levemente */
+}
+
+.portfolio-grid {
+    display: grid;                                      /* Grid para proyectos */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Tarjetas responsivas mínimo 300px */
+    gap: 3rem;                                          /* Separación entre tarjetas */
+}
+
+.portfolio-item {
+    background: var(--surface);                         /* Fondo de tarjeta */
+    border-radius: var(--radius-lg);                    /* Bordes redondeados */
+    overflow: hidden;                                   /* Oculta desbordes (overlay) */
+    transition: all var(--transition-normal);           /* Suaviza hover */
+    border: 0.1rem solid var(--border);                 /* Borde sutil */
+}
+
+.portfolio-item:hover {
+    transform: translateY(-1rem);                       /* Sube más en hover */
+    box-shadow: 0 2rem 6rem var(--shadow);              /* Sombra fuerte */
+}
+
+.portfolio-image {
+    position: relative;                                 /* Para overlay absoluto */
+    height: 25rem;                                      /* Altura fija de la imagen/placeholder */
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color)); /* Fondo degradado si no hay imagen */
+    display: flex; align-items: center; justify-content: center; /* Centra el placeholder */
+    overflow: hidden;                                   /* Oculta overlay al inicio */
+}
+
+.project-placeholder {
+    font-size: 6rem;                                    /* Tamaño grande del ícono */
+    color: rgba(255, 255, 255, 0.8);                    /* Blanco tenue */
+}
+
+.portfolio-overlay {
+    position: absolute; top: 0; left: 0;                /* Cubre toda la tarjeta */
+    width: 100%; height: 100%;
+    background: var(--overlay);                         /* Fondo translúcido sobre imagen */
+    display: flex; align-items: center; justify-content: center; /* Centra contenido */
+    opacity: 0;                                         /* Oculta por defecto */
+    transition: opacity var(--transition-normal);       /* Desvanece al mostrarse */
+}
+
+.portfolio-item:hover .portfolio-overlay {
+    opacity: 1;                                         /* Muestra overlay al hover */
+}
+
+.portfolio-content {
+    text-align: center;                                 /* Centra texto dentro del overlay */
+    padding: 2rem;                                      /* Espaciado interno */
+}
+
+.portfolio-content h3 {
+    font-size: 2rem;                                    /* Título del proyecto */
+    font-weight: var(--font-weight-semibold);           /* Peso semibold */
+    color: var(--text-primary);                         /* Color de texto principal */
+    margin-bottom: 1rem;                                /* Separación inferior */
+}
+
+.portfolio-content p {
+    color: var(--text-muted);                           /* Descripción tenue */
+    margin-bottom: 2rem;                                /* Separación con los enlaces */
+    line-height: 1.6;                                   /* Legibilidad */
+}
+
+.portfolio-links {
+    display: flex;                                      /* Enlaces en fila */
+    justify-content: center;                            /* Centra los botones */
+    gap: 1rem;                                          /* Separación entre botones */
+}
+
+.portfolio-link {
+    width: 4rem; height: 4rem;                          /* Tamaño del botón circular */
+    background: var(--primary-color);                   /* Fondo primario */
+    color: white;                                       /* Ícono blanco */
+    border-radius: 50%;                                 /* Círculo */
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.8rem;                                  /* Tamaño del ícono */
+    transition: all var(--transition-normal);           /* Suaviza hover */
+}
+
+.portfolio-link:hover {
+    background: var(--secondary-color);                 /* Cambia a color secundario al hover */
+    transform: scale(1.1);                              /* Aumenta ligeramente el tamaño */
+}
+
+/* ===============================================
+   EXPERIENCE SECTION
+   =============================================== */
+
+.timeline {
+    position: relative;                                 /* Para línea vertical ::before */
+    max-width: 80rem;                                   /* Ancho máximo para la línea de tiempo */
+    margin: 0 auto;                                     /* Centrada */
+}
+
+.timeline::before {
+    content: '';                                        /* Línea vertical central */
+    position: absolute;
+    left: 3rem; top: 0;                                 /* Separada del borde izquierdo */
+    height: 100%; width: 0.3rem;                        /* Grosor de la línea */
+    background: var(--primary-color);                   /* Color primario */
+    border-radius: var(--radius-md);                    /* Bordes redondeados */
+}
+
+.timeline-item {
+    position: relative;                                 /* Para el marker absoluto */
+    margin-bottom: 4rem;                                /* Separación entre items */
+    padding-left: 8rem;                                 /* Deja espacio para la línea y el marcador */
+}
+
+.timeline-marker {
+    position: absolute;
+    left: 2rem; top: 0;                                 /* Posición del punto sobre la línea */
+    width: 2rem; height: 2rem;                          /* Tamaño del marcador */
+    background: var(--primary-color);                   /* Color del punto */
+    border-radius: 50%;                                 /* Círculo */
+    border: 0.4rem solid var(--background);             /* Borde para resaltar sobre el fondo */
+    z-index: 1;                                         /* Encima de la línea */
+}
+
+.timeline-content {
+    background: var(--surface);                         /* Tarjeta de contenido */
+    padding: 3rem;                                      /* Espaciado interno */
+    border-radius: var(--radius-lg);                    /* Bordes redondeados */
+    box-shadow: 0 0.5rem 2rem var(--shadow);            /* Sombra suave */
+    border: 0.1rem solid var(--border);                 /* Borde sutil */
+    transition: all var(--transition-normal);           /* Suaviza hover */
+}
+
+.timeline-content:hover {
+    transform: translateY(-0.5rem);                     /* Sube levemente al hover */
+    box-shadow: 0 1rem 4rem var(--shadow);              /* Sombra más marcada */
+}
+
+.timeline-header {
+    display: flex;                                      /* Puesto + fecha en la misma fila */
+    justify-content: space-between;                     /* Espaciados a extremos */
+    align-items: center;                                /* Alinea verticalmente */
+    margin-bottom: 1rem;                                /* Separación con el resto del contenido */
+    flex-wrap: wrap;                                    /* Permite saltos en pantallas pequeñas */
+    gap: 1rem;                                          /* Espacio entre elementos al wrap */
+}
+
+.timeline-content h3 {
+    font-size: 2rem;                                    /* Puesto/Cargo */
+    font-weight: var(--font-weight-semibold);           /* Peso semibold */
+    color: var(--text-primary);                         /* Color principal de texto */
+}
+
+.timeline-date {
+    font-size: 1.4rem;                                  /* Tamaño de la fecha */
+    font-weight: var(--font-weight-medium);             /* Peso medio */
+    color: var(--primary-color);                        /* Color primario para destacar */
+    background: rgba(102, 126, 234, 0.1);               /* Fondo tenue relacionado al primario */
+    padding: 0.5rem 1rem;                               /* Espaciado interno */
+    border-radius: var(--radius-lg);                    /* Bordes redondeados */
+}
+
+.timeline-content h4 {
+    font-size: 1.6rem;                                  /* Nombre de la empresa */
+    font-weight: var(--font-weight-medium);             /* Peso medio */
+    color: var(--secondary-color);                      /* Color secundario */
+    margin-bottom: 1.5rem;                              /* Separación inferior */
+}
+
+.timeline-content p {
+    color: var(--text-muted);                           /* Descripción tenue */
+    line-height: 1.7;                                   /* Altura de línea amplia */
+    margin-bottom: 2rem;                                /* Separación inferior */
+}
+
+.timeline-skills {
+    display: flex;                                      /* Etiquetas en fila */
+    gap: 1rem;                                          /* Separación entre etiquetas */
+    flex-wrap: wrap;                                    /* Permite múltiples líneas si no caben */
+}
+
+.skill-tag {
+    padding: 0.5rem 1rem;                               /* Tamaño de la etiqueta */
+    background: var(--primary-color);                   /* Fondo primario */
+    color: white;                                       /* Texto blanco */
+    font-size: 1.2rem;                                  /* Tamaño pequeño */
+    font-weight: var(--font-weight-medium);             /* Peso medio */
+    border-radius: var(--radius-lg);                    /* Bordes redondeados */
+    transition: all var(--transition-fast);             /* Suaviza hover */
+}
+
+.skill-tag:hover {
+    background: var(--secondary-color);                 /* Cambia a color secundario */
+    transform: scale(1.05);                             /* Crece levemente */
+}
+
+@media (max-width: 768px) {
+    .timeline::before {
+        left: 1.5rem;                                   /* Ajusta posición de la línea en móviles */
+    }
+    
+    .timeline-item {
+        padding-left: 5rem;                             /* Menos sangría en móviles */
+    }
+    
+    .timeline-marker {
+        left: 0.5rem;                                   /* Ajusta marcador con la línea */
+    }
+    
+    .timeline-header {
+        flex-direction: column;                         /* Puesto y fecha en columna */
+        align-items: flex-start;                        /* Alineados a la izquierda */
+    }
+}
+
+/* ===============================================
+   CONTACT SECTION
+   =============================================== */
+
+.contact-container {
+    display: grid;                                      /* Dos columnas: info y formulario */
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;                                          /* Separación entre columnas */
+    align-items: start;                                  /* Alinea al inicio vertical */
+}
+
+.contact-info {
+    display: flex;                                      /* Columna de tarjetas de contacto */
+    flex-direction: column;
+    gap: 3rem;                                          /* Separación entre tarjetas */
+}
+
+.contact-item {
+    display: flex;                                      /* Ícono + texto en fila */
+    align-items: center;                                /* Alinea verticalmente */
+    gap: 2rem;                                          /* Separación entre ícono y texto */
+    padding: 2rem;                                      /* Espaciado interno */
+    background: var(--surface);                         /* Fondo de tarjeta */
+    border-radius: var(--radius-lg);                    /* Bordes redondeados */
+    transition: all var(--transition-normal);           /* Suaviza hover */
+    border: 0.1rem solid var(--border);                 /* Borde sutil */
+}
+
+.contact-item:hover {
+    transform: translateY(-0.5rem);                     /* Sube levemente al hover */
+    box-shadow: 0 1rem 3rem var(--shadow);              /* Sombra para elevación */
+    border-color: var(--primary-color);                 /* Resalta borde con primario */
+}
+
+.contact-icon {
+    width: 5rem; height: 5rem;                          /* Tamaño del ícono circular */
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color)); /* Degradado de fondo */
+    color: white;                                       /* Ícono blanco */
+    border-radius: 50%;                                 /* Círculo */
+    display: flex; align-items: center; justify-content: center; /* Centra el ícono */
+    font-size: 2rem;                                    /* Tamaño del ícono */
+    min-width: 5rem;                                    /* Evita que se comprima */
+}
+
+.contact-details h3 {
+    font-size: 1.8rem;                                  /* Título del dato (Email/Teléfono/Ubicación) */
+    font-weight: var(--font-weight-semibold);           /* Peso semibold */
+    color: var(--text-primary);                         /* Color principal de texto */
+    margin-bottom: 0.5rem;                              /* Separación inferior */
+}
+
+.contact-details p {
+    color: var(--text-muted);                           /* Texto secundario */
+    font-size: 1.6rem;                                  /* Tamaño del dato */
+}
+
+.social-links {
+    padding: 2rem;                                      /* Espaciado interno del bloque de redes */
+    background: var(--surface);                         /* Fondo de tarjeta */
+    border-radius: var(--radius-lg);                    /* Bordes redondeados */
+    border: 0.1rem solid var(--border);                 /* Borde sutil */
+}
+
+.social-links h3 {
+    font-size: 1.8rem;                                  /* Título del bloque */
+    font-weight: var(--font-weight-semibold);           /* Peso semibold */
+    color: var(--text-primary);                         /* Color principal */
+    margin-bottom: 2rem;                                /* Separación inferior */
+}
+
+.social-icons {
+    display: flex;                                      /* Íconos en fila */
+    gap: 1.5rem;                                        /* Separación entre íconos */
+}
+
+.social-link {
+    width: 4.5rem; height: 4.5rem;                      /* Tamaño del botón circular */
+    background: var(--primary-color);                   /* Fondo primario */
+    color: white;                                       /* Ícono blanco */
+    border-radius: 50%;                                 /* Círculo */
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.8rem;                                  /* Tamaño del ícono */
+    transition: all var(--transition-normal);           /* Suaviza hover */
+}
+
+.social-link:hover {
+    background: var(--secondary-color);                 /* Cambia a secundario */
+    transform: translateY(-0.3rem) scale(1.1);          /* Sube y aumenta un poco */
+}
+
+/* Contact Form */
+.contact-form-container {
+    background: var(--surface);                         /* Fondo del contenedor del formulario */
+    padding: 4rem;                                      /* Espaciado interno */
+    border-radius: var(--radius-lg);                    /* Bordes redondeados */
+    border: 0.1rem solid var(--border);                 /* Borde sutil */
+}
+
+.contact-form {
+    display: flex;                                      /* Form en columna */
+    flex-direction: column;
+    gap: 2.5rem;                                        /* Separación entre campos */
+}
+
+.form-group {
+    display: flex;                                      /* Grupo de label + input/textarea */
+    flex-direction: column;
+    gap: 0.8rem;                                        /* Separación entre label y campo */
+}
+
+.form-group label {
+    font-size: 1.4rem;                                  /* Tamaño del label */
+    font-weight: var(--font-weight-semibold);           /* Peso semibold */
+    color: var(--text-primary);                         /* Color principal de texto */
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 1.2rem 1.5rem;                             /* Espaciado interno del campo */
+    border: 0.2rem solid var(--border);                 /* Borde del campo */
+    border-radius: var(--radius-md);                    /* Bordes redondeados */
+    background: var(--background);                      /* Fondo según tema */
+    color: var(--text-primary);                         /* Color del texto */
+    font-size: 1.6rem;                                  /* Tamaño del texto */
+    font-family: inherit;                               /* Misma fuente que el body */
+    transition: all var(--transition-normal);           /* Suaviza focus/hover */
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;                                      /* Quita contorno por defecto */
+    border-color: var(--primary-color);                 /* Borde se tiñe del primario al enfocar */
+    box-shadow: 0 0 0 0.3rem rgba(102, 126, 234, 0.1);  /* Halo suave para accesibilidad */
+}
+
+.form-group textarea {
+    resize: vertical;                                   /* Permite cambiar la altura */
+    min-height: 12rem;                                  /* Altura mínima del área de texto */
+}
+
+.submit-btn {
+    padding: 1.5rem 3rem;                               /* Área clicable amplia */
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color)); /* Fondo degradado */
+    color: white;                                       /* Texto blanco */
+    border: none;                                       /* Sin borde */
+    border-radius: var(--radius-lg);                    /* Bordes redondeados */
+    font-size: 1.6rem;                                  /* Tamaño del texto */
+    font-weight: var(--font-weight-semibold);           /* Peso semibold */
+    display: flex; align-items: center; justify-content: center; /* Centra contenido */
+    gap: 1rem;                                          /* Espacio entre texto e ícono */
+    transition: all var(--transition-normal);           /* Suaviza hover/active */
+}
+
+.submit-btn:hover {
+    transform: translateY(-0.2rem);                     /* Sube levemente */
+    box-shadow: 0 1rem 3rem rgba(102, 126, 234, 0.3);   /* Sombra con tinte del primario */
+}
+
+.submit-btn:active {
+    transform: translateY(0);                           /* Vuelve a su lugar al presionar */
+}
+
+@media (max-width: 768px) {
+    .contact-container {
+        grid-template-columns: 1fr;                     /* Una columna en móviles */
+        gap: 4rem;                                      /* Menor separación */
+    }
+    
+    .contact-form-container {
+        padding: 2.5rem;                                /* Menos padding para pantallas pequeñas */
+    }
+}
+
+/* ===============================================
+   FOOTER
+   =============================================== */
+
+.footer {
+    background: var(--text-primary);                    /* Fondo oscuro (usa color de texto para contraste) */
+    color: var(--surface);                              /* Texto claro */
+    padding: 6rem 0 2rem;                               /* Espaciado arriba y abajo */
+}
+
+.footer-content {
+    display: grid;                                      /* Grid adaptable para columnas */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Columnas fluidas mínimo 250px */
+    gap: 4rem;                                          /* Separación entre columnas */
+    margin-bottom: 4rem;                                /* Espacio con la franja inferior */
+}
+
+.footer-section h3,
+.footer-section h4 {
+    margin-bottom: 2rem;                                /* Separación inferior de títulos */
+    color: white;                                       /* Títulos en blanco */
+}
+
+.footer-section h3 {
+    font-size: 2.4rem;                                  /* Tamaño del nombre/brand */
+    font-weight: var(--font-weight-bold);               /* Peso bold */
+}
+
+.footer-section h4 {
+    font-size: 1.8rem;                                  /* Tamaño de subtítulos */
+    font-weight: var(--font-weight-semibold);           /* Peso semibold */
+}
+
+.footer-section p {
+    line-height: 1.6;                                   /* Altura de línea */
+    margin-bottom: 2rem;                                /* Separación inferior */
+    opacity: 0.8;                                       /* Texto con menor énfasis */
+}
+
+.footer-social {
+    display: flex;                                      /* Íconos en fila */
+    gap: 1.5rem;                                        /* Separación entre íconos */
+}
+
+.footer-social-link {
+    width: 4rem; height: 4rem;                          /* Tamaño del botón */
+    background: rgba(255, 255, 255, 0.1);               /* Fondo translúcido */
+    color: white;                                       /* Ícono blanco */
+    border-radius: 50%;                                 /* Círculo */
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem;                                  /* Tamaño del ícono */
+    transition: all var(--transition-normal);           /* Suaviza hover */
+}
+
+.footer-social-link:hover {
+    background: var(--primary-color);                   /* Se tiñe con color primario */
+    transform: translateY(-0.3rem);                     /* Sube levemente */
+}
+
+.footer-links {
+    display: flex;                                      /* Lista vertical de enlaces */
+    flex-direction: column;
+    gap: 1rem;                                          /* Separación entre enlaces */
+}
+
+.footer-links a {
+    color: rgba(255, 255, 255, 0.8);                    /* Enlaces en blanco tenue */
+    transition: color var(--transition-fast);           /* Suaviza cambio de color */
+}
+
+.footer-links a:hover {
+    color: var(--accent-color);                         /* Cambia a color acento al hover */
+}
+
+.footer-contact p {
+    display: flex;                                      /* Ícono + texto en fila */
+    align-items: center;                                /* Alinea verticalmente */
+    gap: 1rem;                                          /* Separación entre ícono y texto */
+    margin-bottom: 1rem;                                /* Separación inferior */
+    opacity: 0.8;                                       /* Menor énfasis */
+}
+
+.footer-contact i {
+    width: 2rem;                                        /* Ancho fijo para alinear íconos */
+    color: var(--primary-color);                        /* Ícono con color primario */
+}
+
+.footer-bottom {
+    border-top: 0.1rem solid rgba(255, 255, 255, 0.1);  /* Línea superior sutil */
+    padding-top: 2rem;                                  /* Separación con el contenido de arriba */
+    text-align: center;                                 /* Centra el texto */
+    display: flex;                                      /* Layout flexible para dos textos */
+    justify-content: space-between;                     /* Separación a extremos en desktop */
+    align-items: center;                                /* Alinea verticalmente */
+    flex-wrap: wrap;                                    /* Permite salto en móviles */
+    gap: 1rem;                                          /* Espacio entre elementos al wrap */
+    opacity: 0.7;                                       /* Menor énfasis */
+}
+
+@media (max-width: 768px) {
+    .footer-bottom {
+        flex-direction: column;                         /* Coloca líneas una debajo de la otra */
+    }
+}
+
+/* ===============================================
+   BACK TO TOP BUTTON
+   =============================================== */
+
+.back-to-top {
+    position: fixed;                                    /* Botón flotante fijo */
+    bottom: 2rem; right: 2rem;                          /* Ubicado en esquina inferior derecha */
+    width: 5rem; height: 5rem;                          /* Tamaño del botón circular */
+    background: var(--primary-color);                   /* Fondo primario */
+    color: white;                                       /* Ícono blanco */
+    border-radius: 50%;                                 /* Círculo */
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2rem;                                    /* Tamaño del ícono */
+    opacity: 0;                                         /* Oculto por defecto */
+    visibility: hidden;                                 /* No interactuable por defecto */
+    transition: all var(--transition-normal);           /* Suaviza aparición/hover */
+    z-index: var(--z-fixed);                            /* Por encima del contenido */
+}
+
+.back-to-top.visible {
+    opacity: 1;                                         /* Visible cuando tiene la clase .visible (JS) */
+    visibility: visible;                                /* Interactuable */
+}
+
+.back-to-top:hover {
+    background: var(--secondary-color);                 /* Cambia a color secundario al hover */
+    transform: translateY(-0.3rem);                     /* Sube levemente */
+}
+
+/* ===============================================
+   RESPONSIVE DESIGN
+   =============================================== */
+
+@media (max-width: 1200px) {
+    .contenedor {
+        padding: 0 3rem;                                /* Más padding lateral en pantallas medianas */
+    }
+}
+
+@media (max-width: 768px) {
+    html {
+        font-size: 56%;                                 /* Reduce base de rem para adaptar tipografía */
+    }
+    
+    .section {
+        padding: 6rem 0;                                /* Menos padding vertical en secciones */
+    }
+    
+    .section-title {
+        font-size: 3.2rem;                              /* Reduce tamaño de títulos */
+    }
+}
+
+@media (max-width: 480px) {
+    html {
+        font-size: 52%;                                 /* Aún más pequeño para móviles muy chicos */
+    }
+    
+    .contenedor {
+        padding: 0 1.5rem;                              /* Menos padding lateral */
+    }
+    
+    .section {
+        padding: 5rem 0;                                /* Secciones más compactas */
+    }
+}
+
+/* ===============================================
+   PRINT STYLES
+   =============================================== */
+
+@media print {
+    .header,
+    .theme-toggle,
+    .back-to-top,
+    .loader {
+        display: none !important;                       /* Oculta elementos no útiles en impresión */
+    }
+    
+    .section {
+        page-break-inside: avoid;                       /* Evita cortar secciones a la mitad */
+    }
+    
+    body {
+        background: white !important;                   /* Fondo blanco para imprimir */
+        color: black !important;                        /* Texto negro para contraste */
+    }
+}

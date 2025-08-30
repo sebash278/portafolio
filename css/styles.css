@@ -10,30 +10,30 @@ Facilitan el cambio de colores, tipografías, tamaños y espaciados en todo el s
 */
 :root {
     /* --- Colores para el tema claro --- */
-    --primary-color: #667eea;        /* Color principal (azul-lila) usado en botones, títulos, etc. */
-    --secondary-color: #764ba2;      /* Color secundario (violeta) para gradientes y detalles */
-    --accent-color: #f093fb;         /* Color acento (rosado) para resaltar elementos */
-    --text-primary: #2d3748;         /* Color principal del texto */
-    --text-secondary: #4a5568;       /* Color secundario para subtítulos o textos menos importantes */
-    --text-muted: #718096;           /* Texto tenue para información secundaria */
-    --background: #ffffff;           /* Fondo principal del sitio */
-    --surface: #f7fafc;              /* Fondos de tarjetas, secciones alternas */
-    --border: #e2e8f0;               /* Color de bordes */
-    --shadow: rgba(0, 0, 0, 0.1);    /* Sombra suave para tarjetas */
+    --primary-color: #BFA2DB;        /* Color principal (azul-lila) usado en botones, títulos, etc. */
+    --secondary-color: #A785D8;      /* Color secundario (violeta) para gradientes y detalles */
+    --accent-color: #EFD9F9;         /* Color acento (rosado) para resaltar elementos */
+    --text-primary: #2D1B3D;         /* Color principal del texto */
+    --text-secondary: #6B4E71;       /* Color secundario para subtítulos o textos menos importantes */
+    --text-muted: #9D89AC;           /* Texto tenue para información secundaria */
+    --background: #F4E8FF;           /* Fondo principal del sitio */
+    --surface: #EDE4FF;              /* Fondos de tarjetas, secciones alternas */
+    --border: #D6C6EB;               /* Color de bordes */
+    --shadow: rgba(0, 0, 0, 0.08);    /* Sombra suave para tarjetas */
     --overlay: rgba(255, 255, 255, 0.9); /* Fondo semitransparente para overlays */
 
     /* --- Colores para el tema oscuro --- */
-    --dark-primary: #667eea;
-    --dark-secondary: #764ba2;
-    --dark-accent: #f093fb;
-    --dark-text-primary: #f7fafc;
-    --dark-text-secondary: #e2e8f0;
-    --dark-text-muted: #a0aec0;
-    --dark-background: #1a202c;
-    --dark-surface: #2d3748;
-    --dark-border: #4a5568;
-    --dark-shadow: rgba(0, 0, 0, 0.3);
-    --dark-overlay: rgba(45, 55, 72, 0.9);
+    --dark-primary: #BFA2DB;
+    --dark-secondary: #A785D8;
+    --dark-accent: #F7B2E7;
+    --dark-text-primary: #F7FAFC;
+    --dark-text-secondary: #E2E8F0;
+    --dark-text-muted: #C9BADB;
+    --dark-background: #1F1A24;
+    --dark-surface: #2D2436;
+    --dark-border: #4A3D5C;
+    --dark-shadow: rgba(0, 0, 0, 0.4);
+    --dark-overlay: rgba(45, 37, 60, 0.9);
 
     /* --- Tipografía global --- */
     --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; /* Fuente principal */
@@ -211,6 +211,17 @@ button {
         opacity: 1;                     /* Termina visible */
         transform: translateY(0);       /* En su lugar */
     }
+}
+
+@keyframes glitch {
+  0% { clip: rect(10px, 9999px, 55px, 0); }
+  50% { clip: rect(85px, 9999px, 140px, 0); }
+  100% { clip: rect(10px, 9999px, 55px, 0); }
+}
+
+@keyframes beat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
 }
 
 .fade-in {
@@ -424,8 +435,8 @@ button {
 .hero-background {
     position: absolute;                 /* Capa de fondo */
     top: 0; left: 0; width: 100%; height: 100%; /* Cubre toda la sección */
-    background: linear-gradient(135deg, var(--primary-color), var(--accent-color)); /* Degradado superior */
-    opacity: 0.9;                       /* Ligera transparencia */
+    background: linear-gradient(135deg, #BFA2DB 0%, #9F8ACD 50%, #D6C6EB 100%);/* Degradado superior */
+    opacity: 0.95;                       /* Ligera transparencia */
 }
 
 .hero-particles {
@@ -507,6 +518,8 @@ button {
     display: inline-flex;              /* Alinea ícono/texto en línea */
     align-items: center;               /* Centra verticalmente */
     gap: 1rem;                         /* Separación entre ícono y texto */
+    will-change: transform;
+    transform-style: preserve-3d;
 }
 
 .btn-primary {
@@ -785,7 +798,7 @@ button {
 
 .skill-bar {
     width: 100%; height: 0.6rem;                        /* Tamaño de la barra base */
-    background: var(--border);                          /* Color de fondo de barra */
+    background: #C7B6D8;                          /* Color de fondo de barra */
     border-radius: var(--radius-md);                    /* Bordes redondeados */
     margin-bottom: 1rem;                                /* Separación con el porcentaje */
     overflow: hidden;                                   /* Oculta el overflow del progreso */
@@ -797,6 +810,17 @@ button {
     border-radius: var(--radius-md);                    /* Bordes redondeados */
     transition: width 2s ease;                          /* Animación de llenado */
     width: 0;                                           /* Inicia en 0; JS lo expandirá según data-skill */
+}
+
+[data-theme="dark"] .skill-progress {
+  background: linear-gradient(
+    90deg,
+    #BFA2DB,
+    #EFD9F9
+  );
+}
+[data-theme="dark"] .skill-bar {
+  background: #3a2e4d;
 }
 
 .skill-percentage {
@@ -855,6 +879,8 @@ button {
     overflow: hidden;                                   /* Oculta desbordes (overlay) */
     transition: all var(--transition-normal);           /* Suaviza hover */
     border: 0.1rem solid var(--border);                 /* Borde sutil */
+    transform-style: preserve-3d;
+    will-change: transform;
 }
 
 .portfolio-item:hover {
@@ -1265,6 +1291,12 @@ button {
     opacity: 0.8;                                       /* Texto con menor énfasis */
 }
 
+[data-theme="dark"] footer h2,
+[data-theme="dark"] footer h3,
+[data-theme="dark"] footer h4 {
+    color: var(--dark-text-muted);
+}
+
 .footer-social {
     display: flex;                                      /* Íconos en fila */
     gap: 1.5rem;                                        /* Separación entre íconos */
@@ -1300,6 +1332,15 @@ button {
     color: var(--accent-color);                         /* Cambia a color acento al hover */
 }
 
+[data-theme="dark"] .footer-links a {
+  color: var(--dark-text-muted);
+  transition: color var(--transition-fast);
+}
+
+[data-theme="dark"] .footer-links a:hover {
+  color: var(--dark-accent);
+}
+
 .footer-contact p {
     display: flex;                                      /* Ícono + texto en fila */
     align-items: center;                                /* Alinea verticalmente */
@@ -1323,6 +1364,10 @@ button {
     flex-wrap: wrap;                                    /* Permite salto en móviles */
     gap: 1rem;                                          /* Espacio entre elementos al wrap */
     opacity: 0.7;                                       /* Menor énfasis */
+}
+
+.heart:hover {
+  animation: beat 0.6s infinite;
 }
 
 @media (max-width: 768px) {
@@ -1382,6 +1427,10 @@ button {
     .section-title {
         font-size: 3.2rem;                              /* Reduce tamaño de títulos */
     }
+    .theme-toggle {
+        top: 2rem;        /* quita el top */     /* lo mandamos abajo */
+        right: 8rem;      /* mantiene la derecha */
+  }
 }
 
 @media (max-width: 480px) {

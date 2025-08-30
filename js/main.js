@@ -281,6 +281,33 @@ function initPortfolioFilters() { // Filtrado de proyectos por categoría
     });
 }
 
+// ANIMACIÓN 3D PARA LAS TARJETAS Y BOTONES
+
+function addTiltEffect(selector) {
+  document.querySelectorAll(selector).forEach(el => {
+    el.addEventListener('mousemove', e => {
+      const rect = el.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = ((y - centerY) / centerY) * 10; 
+      const rotateY = ((x - centerX) / centerX) * 10;
+
+      el.style.transform = `rotateX(${-rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+    });
+
+    el.addEventListener('mouseleave', () => {
+      el.style.transform = 'rotateX(0) rotateY(0) scale(1)';
+    });
+  });
+}
+
+// Aplica a cards y botones
+addTiltEffect('.portfolio-item');
+addTiltEffect('.btn');
+addTiltEffect('.skill-card');
+
 /* ===============================================
    CONTACT FORM
    =============================================== */

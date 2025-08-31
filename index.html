@@ -15,14 +15,13 @@
     <link rel="stylesheet" href="css/normalize.css" />
     <!-- Resetea estilos por defecto de los navegadores para partir de una base consistente -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <!-- Fuente Inter desde Google Fonts con varios pesos -->
-    <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
       rel="stylesheet"
     />
+    <link rel="icon" type="image/png" sizes="32x32" href="img/avatar.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="img/avatar.png">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <!-- Iconos de Font Awesome (versión 6.4.0) -->
     <link rel="preload" href="css/styles.css" as="style" />
     <!-- Pista: precarga tu hoja de estilos principal -->
@@ -33,14 +32,7 @@
     <!-- Contenido visible de la página -->
     <!-- Loading Screen -->
     <div id="loader" class="loader">
-      <!-- Contenedor de la pantalla de carga; se suele ocultar al terminar el JS -->
-      <div class="loader-content">
-        <!-- Agrupa el contenido del loader para centrar/animar -->
-        <div class="loader-circle"></div>
-        <!-- Elemento visual (círculo animado) del loader -->
-        <p>Cargando portafolio...</p>
-        <!-- Mensaje de estado mientras carga -->
-      </div>
+      <pre id="loader-console"></pre>
     </div>
 
     <!-- Theme Toggle -->
@@ -60,7 +52,7 @@
           <div class="logo">
             <!-- Zona del logotipo -->
             <h1 class="logo-text">
-              Sebastian Hernandez <span class="accent">.</span>
+              Sebastian Hernandez
             </h1>
             <!-- Nombre como marca; span para acento visual -->
           </div>
@@ -89,7 +81,7 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="hero" id="inicio">
+    <section class="hero" id="inicio" >
       <!-- Sección hero (portada) con id que coincide con el enlace de navegación -->
       <div class="hero-background">
         <!-- Capa de fondo del hero (gradientes/animaciones) -->
@@ -107,14 +99,9 @@
             <span class="highlight">Sebastian Hernandez</span>
             <!-- Span para resaltar el nombre -->
           </h1>
-          <h2 class="hero-subtitle">Desarrollador Full Stack</h2>
-          <!-- Subtítulo con el rol -->
-          <p class="hero-description">
-            <!-- Descripción breve de propuesta de valor -->
-            Creo y desarrollo experiencias digitales únicas, combinando
-            creatividad y funcionalidad para inspirar, conectar y dejar huella
-            en cada proyecto.
-          </p>
+          <div class="console">
+            <pre id="console-text"></pre>
+          </div>
           <div class="hero-buttons">
             <!-- Grupo de botones de acción -->
             <a href="#portafolio" class="btn btn-primary">Ver Portafolio</a>
@@ -131,7 +118,7 @@
             <!-- Marco decorativo alrededor de la imagen -->
             <div class="profile-image">
               <!-- Lugar de la imagen de perfil (aquí un icono) -->
-              <i class="fas fa-user-circle"></i>
+              <img src="img/avatar.png" alt="avatar">
               <!-- Icono de usuario como placeholder -->
             </div>
           </div>
@@ -145,7 +132,7 @@
     </section>
 
     <!-- About Section -->
-    <section class="sobre-mi section" id="sobre-mi">
+    <section class="sobre-mi section" id="sobre-mi" data-aos="fade-up">
       <!-- Sección "Sobre Mí" con clases para estilos generales de sección -->
       <div class="contenedor">
         <!-- Centra y limita el ancho del contenido -->
@@ -244,11 +231,13 @@
     </section>
 
     <!-- Skills Section -->
-    <section class="habilidades section" id="habilidades">
+    <section class="habilidades section reveal" id="habilidades" data-aos="fade-up">
       <!-- Sección de habilidades técnicas -->
       <div class="contenedor">
         <div class="section-header">
-          <h2 class="section-title" data-text="Habilidades Técnicas">Habilidades Técnicas</h2>
+          <h2 class="section-title" data-text="Habilidades Técnicas">
+            Habilidades Técnicas
+          </h2>
           <div class="section-divider"></div>
         </div>
         <div class="skills-container">
@@ -348,7 +337,7 @@
     </section>
 
     <!-- Portfolio Section -->
-    <section class="portafolio section" id="portafolio">
+    <section class="portafolio section" id="portafolio" data-aos="fade-in">
       <!-- Sección de proyectos -->
       <div class="contenedor">
         <div class="section-header">
@@ -380,9 +369,8 @@
                   <h3>Blog</h3>
                   <!-- Nombre del proyecto -->
                   <p>
-                    Aplicación web con un CRUD completo y un sistema de
-                    autenticación de usuarios completo, creada con Node.JS,
-                    Express, EJS, JS y CSS3, con arquitectura MVC organizada
+                    Aplicación web con CRUD y autenticación de usuarios, desarrollada en Node.js con Express, 
+                    EJS y CSS bajo arquitectura MVC
                   </p>
                   <!-- Breve descripción -->
                   <div class="portfolio-links">
@@ -420,8 +408,8 @@
                   <h3>Weather App</h3>
                   <!-- Nombre del proyecto -->
                   <p>
-                    Aplicación web que usa la API de OpenWeatherMap para mostrar el clima y otras características de la ciudad buscada.
-                    Hecha con Node.js, Express, EJSy Axios
+                    Aplicación web que consume la API de OpenWeatherMap para mostrar el clima de una ciudad, 
+                    hecha en Node.js con Express, EJS y Axios
                   </p>
                   <!-- Breve descripción -->
                   <div class="portfolio-links">
@@ -458,7 +446,9 @@
                     <a href="#" class="portfolio-link"
                       ><i class="fas fa-eye"></i
                     ></a>
-                    <a href="https://github.com/sebash278" class="portfolio-link"
+                    <a
+                      href="https://github.com/sebash278"
+                      class="portfolio-link"
                       ><i class="fab fa-github"></i
                     ></a>
                   </div>
@@ -480,7 +470,9 @@
                     <a href="#" class="portfolio-link"
                       ><i class="fas fa-eye"></i
                     ></a>
-                    <a href="https://github.com/sebash278" class="portfolio-link"
+                    <a
+                      href="https://github.com/sebash278"
+                      class="portfolio-link"
                       ><i class="fab fa-github"></i
                     ></a>
                   </div>
@@ -502,7 +494,9 @@
                     <a href="#" class="portfolio-link"
                       ><i class="fas fa-eye"></i
                     ></a>
-                    <a href="https://github.com/sebash278" class="portfolio-link"
+                    <a
+                      href="https://github.com/sebash278"
+                      class="portfolio-link"
                       ><i class="fab fa-github"></i
                     ></a>
                   </div>
@@ -516,7 +510,7 @@
     </section>
 
     <!-- Experience Section -->
-    <section class="experiencia section" id="experiencia">
+    <section class="experiencia section reveal" id="experiencia">
       <!-- Línea de tiempo de experiencia laboral -->
       <div class="contenedor">
         <div class="section-header">
@@ -539,7 +533,12 @@
               <h4>AmiGo Abroad</h4>
               <!-- Empresa -->
               <p>
-                Desarrollo y mantenimiento de la plataforma web AmiGo Abroad, con enfoque en la mejora de la experiencia de usuario, optimización de interfaces y creación de nuevas funcionalidades. Implementación de componentes reutilizables, pruebas de usabilidad y soporte en la integración de servicios para la comunidad de usuarios internacionales.
+                Desarrollo y mantenimiento de la plataforma web AmiGo Abroad,
+                con enfoque en la mejora de la experiencia de usuario,
+                optimización de interfaces y creación de nuevas funcionalidades.
+                Implementación de componentes reutilizables, pruebas de
+                usabilidad y soporte en la integración de servicios para la
+                comunidad de usuarios internacionales.
               </p>
               <!-- Descripción de labores -->
               <div class="timeline-skills">
@@ -557,7 +556,7 @@
     </section>
 
     <!-- Contact Section -->
-    <section class="contacto section" id="contacto">
+    <section class="contacto section" id="contacto" data-aos="zoom-in">
       <!-- Sección de contacto con info y formulario -->
       <div class="contenedor">
         <div class="section-header">
@@ -606,11 +605,13 @@
               <!-- Bloque de redes sociales -->
               <h3>Sígueme en redes</h3>
               <div class="social-icons">
-                <a href="https://www.linkedin.com/in/sebastian-hernandez-51a4122ba/" class="social-link"
+                <a
+                  href="https://www.linkedin.com/in/sebastian-hernandez-51a4122ba/"
+                  class="social-link" target="_blank"
                   ><i class="fab fa-linkedin"></i
                 ></a>
                 <!-- Enlace a LinkedIn -->
-                <a href="https://github.com/sebash278" class="social-link"
+                <a href="https://github.com/sebash278" class="social-link" target="_blank"
                   ><i class="fab fa-github"></i
                 ></a>
                 <!-- Enlace a GitHub -->
@@ -625,13 +626,13 @@
                 <!-- Grupo Nombre -->
                 <label for="name">Nombre completo</label>
                 <!-- Etiqueta accesible asociada al input -->
-                <input type="text" id="name" name="name" required />
+                <input type="text" id="name" name="name" autocomplete="name" required />
                 <!-- Campo de texto obligatorio -->
               </div>
               <div class="form-group">
                 <!-- Grupo Email -->
                 <label for="email">Correo electrónico</label>
-                <input type="email" id="email" name="email" required />
+                <input type="email" id="email" name="email" autocomplete="email" required />
                 <!-- type="email" habilita validación básica -->
               </div>
               <div class="form-group">
@@ -650,9 +651,9 @@
                 ></textarea>
                 <!-- Área de texto obligatoria -->
               </div>
-              <button type="submit" class="submit-btn">
+              <button type="submit" class="btn submit-btn">
                 <!-- Botón enviar; el submit se manejará con JS -->
-                <span class="btn btn-text">Enviar Mensaje</span>
+                <span class="btn-text">Enviar Mensaje</span>
                 <i class="fas fa-paper-plane"></i>
                 <!-- Icono de avión de papel -->
               </button>
@@ -677,14 +678,11 @@
             </p>
             <div class="footer-social">
               <!-- Iconos de redes en el footer -->
-              <a href="#" class="footer-social-link"
+              <a href="https://www.linkedin.com/in/sebastian-hernandez-51a4122ba/" class="footer-social-link" target="_blank"
                 ><i class="fab fa-linkedin"></i
               ></a>
-              <a href="#" class="footer-social-link"
+              <a href="https://github.com/sebash278" class="footer-social-link" target="_blank"
                 ><i class="fab fa-github"></i
-              ></a>
-              <a href="#" class="footer-social-link"
-                ><i class="fab fa-twitter"></i
               ></a>
             </div>
           </div>
@@ -704,7 +702,9 @@
             <!-- Columna 4: contacto -->
             <h4>Contacto</h4>
             <div class="footer-contact">
-              <p><i class="fas fa-envelope"></i> hernandezsebastian0203@gmail.com</p>
+              <p>
+                <i class="fas fa-envelope"></i> hernandezsebastian0203@gmail.com
+              </p>
               <p><i class="fas fa-phone"></i> +57 311 475 1754</p>
               <p><i class="fas fa-map-marker-alt"></i> Bogotá, Colombia</p>
             </div>
@@ -712,8 +712,10 @@
         </div>
         <div class="footer-bottom">
           <!-- Franja inferior con derechos -->
-          <p>&copy; <span id="year"></span> Portafolio :). 
-            Hecho con <span class="heart">💜</span></p>
+          <p>
+            &copy; <span id="year"></span> Portafolio :). Hecho con
+            <span class="heart">💜</span>
+          </p>
           <!-- Toque personal/humano -->
         </div>
       </div>
@@ -725,7 +727,13 @@
       <i class="fas fa-arrow-up"></i>
       <!-- Icono de flecha hacia arriba -->
     </button>
-
+    <div class="cursor"></div>
+    <div id="doomModal" class="doom-modal">
+      <div class="doom-content">
+        <button id="closeDoom" class="close-doom">&times;</button>
+        <iframe id="doomFrame" src="" frameborder="0"></iframe>
+      </div>
+    </div>
     <!-- JavaScript -->
     <script src="js/main.js"></script>
     <!-- Carga el archivo JS principal que maneja interacciones/animaciones -->

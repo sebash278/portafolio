@@ -23,36 +23,47 @@ function initializeApp() { // Función orquestadora de la app
     initPortfolioFilters(); // Filtra proyectos por categoría
     initContactForm();      // Maneja estado y “envío” del formulario de contacto
     initBackToTop();        // Muestra/oculta botón “volver arriba” y su acción
-    initTypingEffect();     // Efecto de tipeo en el subtítulo del hero
-    initScrollAnimations(); // Animaciones al hacer scroll usando IntersectionObserver
 
     // Performance optimizations
     initLazyLoading();      // Carga diferida (lazy) de imágenes con data-src
 
-    console.log('Portfolio initialized successfully! 🚀'); // Mensaje de depuración en consola
+    console.log('Portafolio iniciado exitosamente'); // Mensaje de depuración en consola
 }
 
 /* ===============================================
    LOADING SCREEN
    =============================================== */
 
-function initLoader() { // Controla el loader inicial
-    const loader = document.getElementById('loader'); // Obtiene el contenedor del loader por id
+function initLoader() {
+  const loader = document.getElementById("loader");
+  const loaderConsole = document.getElementById("loader-console");
 
-    // Hide loader after page load
-    window.addEventListener('load', () => { // Espera a que TODO (incluidas imágenes) haya cargado
-        setTimeout(() => { // Retrasa para asegurar al menos 1s de loader visible
-            loader.classList.add('hidden'); // Agrega clase que lo desvanece (CSS)
-            document.body.style.overflow = 'visible'; // Rehabilita el scroll del body
+  const lines = [
+    "> Initializing portfolio...",
+    "> Loading assets...",
+    "> Connecting to server...",
+    "> Access granted!",
+  ];
 
-            // Remove loader from DOM after transition
-            setTimeout(() => { // Espera a que termine la transición de opacidad
-                if (loader) { // Verifica que exista
-                    loader.remove(); // Elimina el elemento del DOM
-                }
-            }, 500); // Coincide con la duración de la transición CSS
-        }, 1000); // Show loader for at least 1 second
-    });
+  let i = 0;
+  function typeLine() {
+    if (i < lines.length) {
+      loaderConsole.textContent += lines[i] + "\n";
+      i++;
+      setTimeout(typeLine, 600);
+    } else {
+      setTimeout(() => {
+        loader.classList.add("hidden");
+        document.body.style.overflow = "visible";
+
+        setTimeout(() => {
+          loader.remove();
+        }, 600);
+      }, 800);
+    }
+  }
+
+  typeLine();
 }
 
 /* ===============================================
@@ -200,6 +211,12 @@ function initActiveNavigation() { // Marca el enlace activo según la sección v
 /* ===============================================
    SCROLL EFFECTS
    =============================================== */
+
+// AOS PARA ANIMACIONES ENTRE SECCIONES
+AOS.init({
+  duration: 1000, // duración animación
+  once: true,     // se ejecuta solo la primera vez
+});
 
 function initScrollEffects() { // Efecto parallax simple para partículas del hero
     // Parallax effect for hero section
@@ -447,100 +464,8 @@ function initBackToTop() { // Control del botón “volver arriba”
 }
 
 /* ===============================================
-   TYPING EFFECT
-   =============================================== */
-
-function initTypingEffect() { // Efecto máquina de escribir en el subtítulo del hero
-    const heroSubtitle = document.querySelector('.hero-subtitle'); // Selecciona el elemento de subtítulo
-    if (!heroSubtitle) return; // Si no existe, termina
-
-    const text = heroSubtitle.textContent; // (No se usa luego, pero toma el texto inicial)
-    const roles = [ // Lista de frases a escribir/borrar en bucle
-        'Desarrollador Full Stack',
-        'Creador de Experiencias Web',
-        'Solucionador de Problemas',
-        'Apasionado por la Tecnología'
-    ];
-
-    let roleIndex = 0; // Índice de la frase actual
-    let charIndex = 0; // Índice del carácter actual
-    let isDeleting = false; // Bandera: escribiendo o borrando
-
-    function typeWriter() { // Función recursiva que escribe/borra caracteres
-        const currentRole = roles[roleIndex]; // Frase actual
-
-        if (isDeleting) { // Si está borrando
-            heroSubtitle.textContent = currentRole.substring(0, charIndex - 1); // Quita un carácter
-            charIndex--; // Retrocede el índice
-        } else { // Si está escribiendo
-            heroSubtitle.textContent = currentRole.substring(0, charIndex + 1); // Agrega un carácter
-            charIndex++; // Avanza el índice
-        }
-
-        let typeSpeed = isDeleting ? 50 : 100; // Velocidad más rápida al borrar
-
-        if (!isDeleting && charIndex === currentRole.length) { // Si terminó de escribir la frase
-            typeSpeed = 2000; // Pausa 2s
-            isDeleting = true; // Comienza a borrar
-        } else if (isDeleting && charIndex === 0) { // Si terminó de borrar
-            isDeleting = false; // Vuelve a escribir
-            roleIndex = (roleIndex + 1) % roles.length; // Avanza a la siguiente frase (cíclico)
-            typeSpeed = 500; // Pequeña pausa antes de escribir
-        }
-
-        setTimeout(typeWriter, typeSpeed); // Programa la siguiente iteración
-    }
-
-    // Start typing effect after page load
-    setTimeout(typeWriter, 2000); // Inicia el efecto 2s después de cargar
-}
-
-/* ===============================================
    SCROLL ANIMATIONS
    =============================================== */
-
-function initScrollAnimations() { // Aplica animaciones cuando elementos entran al viewport
-    const observerOptions = {
-        threshold: 0.1,                 // Se activa cuando el 10% del elemento es visible
-        rootMargin: '0px 0px -50px 0px' // Margen inferior negativo para activar un poco antes
-    };
-
-    const observer = new IntersectionObserver((entries) => { // Crea el observador
-        entries.forEach(entry => { // Revisa cada elemento observado
-            if (entry.isIntersecting) { // Si es visible
-                entry.target.classList.add('animate-in'); // Agrega clase que dispara la animación
-            }
-        });
-    }, observerOptions);
-
-    // Observe elements for animation
-    const animateElements = document.querySelectorAll(` // Selecciona elementos a animar
-        .section-header,
-        .stat-item,
-        .skill-item,
-        .skill-card,
-        .portfolio-item,
-        .timeline-item,
-        .contact-item
-    `);
-
-    animateElements.forEach((el, index) => { // Prepara cada elemento con estado inicial
-        el.style.opacity = '0'; // Opacidad inicial 0
-        el.style.transform = 'translateY(30px)'; // Desplazado hacia abajo
-        el.style.transition = `all 0.6s ease ${index * 0.1}s`; // Transición con retraso escalonado
-        observer.observe(el); // Comienza a observar el elemento
-    });
-
-    // Add CSS for animate-in class
-    const style = document.createElement('style'); // Crea un <style> dinámico
-    style.textContent = ` // Define la clase final de animación
-        .animate-in {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-        }
-    `;
-    document.head.appendChild(style); // Inserta el <style> en el <head>
-}
 
 /* ===============================================
    LAZY LOADING
@@ -607,103 +532,83 @@ function throttle(func, limit) { // Asegura que una función no se ejecute más 
    EASTER EGGS & FUN FEATURES
    =============================================== */
 
-// Konami Code Easter Egg
-let konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65]; // Secuencia de teclas del código Konami
-let konamiIndex = 0; // Posición actual dentro de la secuencia
+// Konami Code: ↑ ↑ ↓ ↓ ← → ← → B A
+const konamiCode = [38,38,40,40,37,39,37,39,66,65];
+let konamiIndex = 0;
 
-document.addEventListener('keydown', (e) => { // Escucha las teclas presionadas
-    if (e.keyCode === konamiCode[konamiIndex]) { // Si coincide la tecla con la esperada
-        konamiIndex++; // Avanza en la secuencia
-        if (konamiIndex === konamiCode.length) { // Si se completó toda la secuencia
-            activateEasterEgg(); // Activa el easter egg
-            konamiIndex = 0; // Reinicia el índice
-        }
-    } else {
-        konamiIndex = 0; // Si falla en cualquier punto, reinicia
+document.addEventListener("keydown", (e) => {
+  if (e.keyCode === konamiCode[konamiIndex]) {
+    konamiIndex++;
+    if (konamiIndex === konamiCode.length) {
+      konamiActivated();
+      konamiIndex = 0;
     }
+  } else {
+    konamiIndex = 0; // reset si se equivoca
+  }
 });
 
-function activateEasterEgg() { // Aplica efectos de arcoíris temporalmente
-    // Add rainbow animation to the page
-    const style = document.createElement('style'); // Crea un <style> temporal
-    style.textContent = ` // Define animación de rotación de tono
-        @keyframes rainbow {
-            0% { filter: hue-rotate(0deg); }
-            100% { filter: hue-rotate(360deg); }
-        }
-        .easter-egg-active {
-            animation: rainbow 3s linear infinite;
-        }
-    `;
-    document.head.appendChild(style); // Inserta en el head
+function konamiActivated() {
+  const doomModal = document.getElementById("doomModal");
+  const doomFrame = document.getElementById("doomFrame");
+  const closeDoom = document.getElementById("closeDoom");
 
-    document.body.classList.add('easter-egg-active'); // Activa la clase de animación en el body
+  // Abre el modal y carga DOOM
+  doomModal.style.display = "flex";
+  doomFrame.src = "https://midzer.de/wasm/doom/";
 
-    showNotification('¡Código Konami activado! 🌈', 'success'); // Muestra notificación de éxito
+  // Cerrar modal
+  closeDoom.onclick = () => {
+    doomModal.style.display = "none";
+    doomFrame.src = ""; // parar el juego cuando cierras
+  };
 
-    setTimeout(() => { // Tras 10 segundos
-        document.body.classList.remove('easter-egg-active'); // Quita la animación
-        document.head.removeChild(style); // Elimina el <style> inyectado
-    }, 10000);
-}
+  // Cerrar si haces click fuera del contenido
+  doomModal.onclick = (e) => {
+    if (e.target === doomModal) {
+      doomModal.style.display = "none";
+      doomFrame.src = "";
+    }
+  };
 
-// Console message for curious developers
-console.log(` // Mensaje estilizado en la consola con ASCII art
-%c
- ██████╗ ██████╗ ██████╗ ███████╗    ██████╗ ███████╗██╗   ██╗
-██╔════╝██╔═══██╗██╔══██╗██╔════╝    ██╔══██╗██╔════╝██║   ██║
-██║     ██║   ██║██║  ██║█████╗      ██║  ██║█████╗  ██║   ██║
-██║     ██║   ██║██║  ██║██╔══╝      ██║  ██║██╔══╝  ╚██╗ ██╔╝
-╚██████╗╚██████╔╝██████╔╝███████╗    ██████╔╝███████╗ ╚████╔╝ 
- ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝    ╚═════╝ ╚══════╝  ╚═══╝  
-
-%c¡Hola, desarrollador curioso! 
-Si estás viendo esto, probablemente te interese el código.
-Este portafolio fue creado con HTML, CSS y JavaScript vanilla.
-
-¿Quieres aprender más? Contáctame y hablemos de desarrollo! 
-
-%cPD: Intenta el código Konami (↑↑↓↓←→←→BA) 
-`, 'color: #667eea; font-family: monospace; font-size: 12px;', 'color: #2d3748; font-size: 14px; font-weight: normal;', 'color: #718096; font-size: 12px; font-style: italic;'); // Estilos por %c aplican a los bloques de texto
-
-/* ===============================================
-   ERROR HANDLING
-   =============================================== */
-
-// Global error handler
-window.addEventListener('error', (e) => { // Captura errores JS no manejados
-    console.error('Portfolio Error:', e.error); // Loguea el error en consola
-    // In production, you might want to send this to an error tracking service
-});
-
-// Unhandled promise rejection handler
-window.addEventListener('unhandledrejection', (e) => { // Captura promesas rechazadas sin catch
-    console.error('Unhandled Promise Rejection:', e.reason); // Loguea la razón del rechazo
-    e.preventDefault(); // Previene logs duplicados en algunos navegadores
-});
-
-// Service Worker registration (for PWA features)
-if ('serviceWorker' in navigator) { // Verifica soporte de Service Workers
-    window.addEventListener('load', () => { // Espera a que la página termine de cargar
-        navigator.serviceWorker.register('/sw.js') // Registra el SW en la ruta dada
-            .then(registration => { // Si el registro fue exitoso
-                console.log('SW registered: ', registration); // Informa detalles
-            })
-            .catch(registrationError => { // Si falla el registro
-                console.log('SW registration failed: ', registrationError); // Loguea el error
-            });
-    });
-}
-
-// Export functions for testing (if needed)
-if (typeof module !== 'undefined' && module.exports) { // Si está en un entorno CommonJS (Node/testing)
-    module.exports = { // Exporta funciones para pruebas unitarias
-        initializeApp,
-        showNotification,
-        debounce,
-        throttle
-    };
+  alert("DOOM desbloqueado");
 }
 
 // Funcion para el año actualizado en el footer
 document.getElementById("year").textContent = new Date().getFullYear();
+
+//Console
+const consoleText = document.getElementById("console-text");
+if (consoleText) {
+  const messages = [
+    "Transformando ideas en líneas de código",
+    "Siempre aprendiendo, siempre creando",
+    "Frontend + Backend = Magia",
+    "Amante del Morado 💜"
+  ];
+  let messageIndex = 0;
+  let charIndex = 0;
+
+  function typeMessage() {
+    if (charIndex < messages[messageIndex].length) {
+      consoleText.textContent += messages[messageIndex].charAt(charIndex);
+      charIndex++;
+      setTimeout(typeMessage, 80);
+    } else {
+      setTimeout(() => {
+        consoleText.textContent = "";
+        charIndex = 0;
+        messageIndex = (messageIndex + 1) % messages.length;
+        typeMessage();
+      }, 2000);
+    }
+  }
+  typeMessage();
+}
+
+//Cursor personalizado
+const cursor = document.querySelector(".cursor");
+document.addEventListener("mousemove", (e) => {
+  cursor.style.top = `${e.clientY}px`;
+  cursor.style.left = `${e.clientX}px`;
+});
